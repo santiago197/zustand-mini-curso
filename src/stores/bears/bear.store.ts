@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { PandaBears } from '../../pages/01-basic/BearPage';
 
 interface Bear {
 	id: number;
