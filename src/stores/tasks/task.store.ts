@@ -1,12 +1,18 @@
 import { StateCreator, create } from 'zustand';
 import type { Task, TaskStatus } from '../../interfaces';
+import { devtools } from 'zustand/middleware';
 
 interface TaskState {
 	tasks: Record<string, Task>; // {[key:string]"Task"}
 	getTaskByStatus: (status: TaskStatus) => Task[];
+	dragginTaskid?: string;
+
+	setDraggindTaskId: (taskId: string) => void;
+	removeDraggindTaskId: () => void;
 }
 
 const storeApi: StateCreator<TaskState> = (set, get) => ({
+	dragginTaskid: undefined,
 	tasks: {
 		'ABC-1': { id: 'ABC-1', title: 'Task 1', status: 'open' },
 		'ABC-2': { id: 'ABC-2', title: 'Task 2', status: 'in-progress' },
@@ -17,5 +23,11 @@ const storeApi: StateCreator<TaskState> = (set, get) => ({
 		const tasks = get().tasks;
 		return Object.values(tasks).filter((task) => task.status == status);
 	},
+	setDraggindTaskId: (taskId: string) => {
+		set({ dragginTaskid: taskId });
+	},
+	removeDraggindTaskId: () => {
+		set({ dragginTaskid: undefined });
+	},
 });
-export const useTaskStore = create<TaskState>()(storeApi);
+export const useTaskStore = create<TaskState>()(devtools(storeApi));
