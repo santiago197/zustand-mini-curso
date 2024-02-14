@@ -1,10 +1,5 @@
 import { type StateCreator, create } from 'zustand';
-import {
-	StateStorage,
-	createJSONStorage,
-	devtools,
-	persist,
-} from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 import { customSessionStorage } from '../storages/session.storage';
 import { firebaseStorage } from '../storages/firebase.storage';
 

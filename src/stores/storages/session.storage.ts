@@ -14,4 +14,5 @@ const storageApi: StateStorage = {
 		console.log('removeItem', name);
 	},
 };
+
 export const customSessionStorage = createJSONStorage(() => storageApi);
